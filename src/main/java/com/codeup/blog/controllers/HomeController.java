@@ -9,6 +9,6 @@ public class HomeController {
     @GetMapping ("/")
     @ResponseBody
     public String index(){
-        return "This is the landing page!";
+        return "index";
     }
 }
