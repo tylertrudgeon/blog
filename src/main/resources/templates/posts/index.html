@@ -1,8 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head(Index)" />
+<head th:replace="fragments/header :: header('Index')"></head>
 <body>
-    <nav th:replace="fragments/navbar :: navbar" />
+    <nav th:replace="fragments/navbar :: navbar"></nav>
     <h1>Welcome to my site!</h1>
+
+    <h1 th:if="${noPostsFound}">No posts found!</h1>
+
+    <div th:each="post : ${posts}">
+        <h3 th:text="${post.title}"></h3>
+        <p th:text="${post.body}"></p>
+    </div>
 </body>
 </html>
