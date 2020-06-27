@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class PostController {
@@ -68,5 +69,12 @@ public class PostController {
     public String delete(@PathVariable long id){
         postsDao.deleteById(id);
         return "Post Deleted!";
+    }
+
+    @GetMapping("/search")
+    public String searchResults(Model model, @RequestParam(name = "term") String term){
+        List<Post> Posts = postsDao.searchByTitle(term);
+        model.addAttribute("posts", Posts);
+        return "posts/index";
     }
 }
