@@ -31,7 +31,7 @@ public class Post {
 
     public String getTitle() {
         return title;
-    }
+    }d
 
     public void setTitle(String title) {
         this.title = title;
@@ -45,11 +45,7 @@ public class Post {
         this.body = body;
     }
 
-    public Long getID() {
-        return id;
-    }
+    public Long getID() { return id; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public void setId(Long id) { this.id = id; }
 }
