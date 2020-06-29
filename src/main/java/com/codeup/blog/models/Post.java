@@ -3,7 +3,7 @@ package com.codeup.blog.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="posts")
+@Table(name ="posts")
 public class Post {
 
     @Id
@@ -45,7 +45,7 @@ public class Post {
         this.body = body;
     }
 
-    public Long getID() { return id; }
+    public long getID() { return id; }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(long id) { this.id = id; }
 }
