@@ -31,7 +31,7 @@ public class Post {
 
     public String getTitle() {
         return title;
-    }d
+    }
 
     public void setTitle(String title) {
         this.title = title;
