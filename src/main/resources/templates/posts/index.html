@@ -11,15 +11,11 @@
             <div class="card-body">
                 <h5 class="card-title" th:text="${post.title}"></h5>
                 <p class="card-text" th:text="${post.body}"></p>
-                <a th:action="${'/posts/' + post.ID}"  class="btn btn-primary">View full post</a>
             </div>
+            <form th:action="${'/posts/' + post.ID}" th:method="GET">
+                <button class="btn btn-primary">View Post</button>
+            </form>
         </div>
     </div>
-<!--    <div th:each="post : ${posts}">-->
-<!--        <h3 th:text="${post.title}"></h3>-->
-<!--        <p th:text="${post.body}"></p>-->
-<!--    </div>-->
-
-
 </body>
 </html>
