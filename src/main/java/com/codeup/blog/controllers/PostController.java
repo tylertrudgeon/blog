@@ -50,7 +50,7 @@ public class PostController {
         User currentUser = userDao.getOne(1L);
         postToBeSaved.setOwner(currentUser);
         Post newPost = postsDao.save(postToBeSaved);
-        emailService.prepareAndSend(newPost, "A new post has been created","A new post has been created with the id of: " + newPost.getID() + " with a title of: " + newPost.getTitle() + ", by username: " + newPost.getOwner() + ".");
+        emailService.prepareAndSend(newPost, "A new post has been created","A new post has been created with the id of: " + newPost.getID() + " with a title of: " + newPost.getTitle());
         return "redirect:/posts/" + newPost.getID();
     }
 
