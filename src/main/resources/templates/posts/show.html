@@ -2,21 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header('Single Post')"></head>
 </head>
-<body>
+<body style="background-color: #bcbcbf">
 <nav th:replace="fragments/navbar :: navbar"></nav>
 
 <div class="row justify-content-center">
-    <div class="card text-center m-5" style="width: 18rem;">
+    <div class="card text-center m-5 border-secondary" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title" th:text="${post.title}"></h5>
             <p class="card-text" th:text="${post.body}"></p>
             <div>Created by: <span th:text="${post.owner.username}"></span></div>
         </div>
-        <form th:action="${'/posts/' + post.ID + '/edit'}" th:method="GET">
+        <form class="my-2" th:action="${'/posts/' + post.ID + '/edit'}" th:method="GET">
             <button class="btn btn-primary">Edit Post</button>
             <button form="delete-form" class="btn btn-danger">Delete Post</button>
         </form>
-        <form id="delete-form" th:action="${'/posts/' + post.ID + '/delete'}" th:method="POST">
+        <form id="delete-form" class="my-2" th:action="${'/posts/' + post.ID + '/delete'}" th:method="POST">
         </form>
     </div>
 </div>

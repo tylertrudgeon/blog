@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header('Create a Post')"></head>
 </head>
-<body>
+<body style="background-color: #bcbcbf">
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="m-5">
     <form th:action="@{/posts/create}" th:method="post" th:object="${post}">

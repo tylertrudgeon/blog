@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/header :: header('Edit Post')"></head>
 </head>
-<body>
+<body style="background-color: #bcbcbf">
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div class="m-5">
     <form th:action="${'/posts/' + post.ID + '/edit'}" th:method="post" th:object="${post}">
@@ -23,8 +23,8 @@
             <label class="form-check-label" for="inlineCheckbox2">2</label>
         </div>
         <br>
-        <button class="btn btn-light">Save Changes</button>
-        <button form="delete-form" class="btn btn-danger">Delete Post</button>
+        <button class="btn btn-light mt-3">Save Changes</button>
+        <button form="delete-form" class="btn btn-danger mt-3">Delete Post</button>
     </form>
     <form id="delete-form" th:action="${'/posts/' + post.ID + '/delete'}" th:method="POST">
     </form>
