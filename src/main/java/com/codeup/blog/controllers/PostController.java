@@ -23,9 +23,9 @@ public class PostController {
 
     @GetMapping("/posts")
     public String postsIndex(Model model){
-        ArrayList<Post> posts = new ArrayList<>();
-        model.addAttribute("noPostsFound", posts.size() == 0);
+        List<Post> posts = postsDao.findAll();
         model.addAttribute("posts", posts);
+        model.addAttribute("noPostsFound", posts.size() == 0);
         return "/posts/index";
     }
 

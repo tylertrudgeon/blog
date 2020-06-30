@@ -5,11 +5,11 @@
 <body>
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div>
-    <form th:action="${'/posts/' + post.ID + '/edit'}" th:method="POST" th:object="post">
+    <form th:action="${'/posts/' + post.ID + '/edit'}" th:method="POST" th:object="${post}">
         <label for="title">Title</label>
         <input type="text" th:field="*{title}"><br>
         <label for="body">Body</label>
-        <input type="text" th:field="${body}"><br>
+        <input type="text" th:field="*{body}"><br>
         <button class="btn btn-light">Save Changes</button>
     </form>
     <form th:action="${'/posts/' + post.ID + '/delete'}" th:method="POST">
