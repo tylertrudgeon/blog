@@ -6,13 +6,15 @@
 <nav th:replace="fragments/navbar :: navbar"></nav>
 <div>
     <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
-        Title:
-        <input th:field="*{title}" />
-        <br />
-        Description:
-        <input th:field="*{body}" />
-        <br />
-        <input type="submit" />
+        <div class="form-group">
+            <label for="title">Title: </label><br>
+            <input type="text" th:field="*{title}" />
+        </div>
+        <div class="form-group">
+            <label for="body">Body:</label>
+            <textarea class="form-control" rows="3" th:field="*{body}" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 </body>
