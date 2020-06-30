@@ -24,8 +24,6 @@ public class PostController {
     @GetMapping("/posts")
     public String postsIndex(Model model){
         ArrayList<Post> posts = new ArrayList<>();
-//        posts.add(new Post("Second post", "Second body"));
-//        posts.add(new Post("Third post", "Third body"));
         model.addAttribute("noPostsFound", posts.size() == 0);
         model.addAttribute("posts", posts);
         return "/posts/index";
@@ -33,8 +31,9 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String singlePost(@PathVariable long id, Model model){
-        model.addAttribute("post", new Post("Dell PC", "Like new!", userDao.getOne(1L)));
+        Post post = postsDao.getOne(id);
         model.addAttribute("postId", id);
+        model.addAttribute("post", post);
         return "posts/show";
     }
 
@@ -60,12 +59,11 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    @ResponseBody
     public String editPost(@ModelAttribute Post postToEdit) {
         User currentUser = userDao.getOne(1L);
         postToEdit.setOwner(currentUser);
         postsDao.save(postToEdit);
-        return "redirect:/ads/" + postToEdit.getID();
+        return "redirect:/posts/" + postToEdit.getID();
     }
 
     @PostMapping("/posts/{id}/delete")
