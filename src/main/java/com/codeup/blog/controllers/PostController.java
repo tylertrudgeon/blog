@@ -65,10 +65,9 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/delete")
-    @ResponseBody
     public String delete(@PathVariable long id){
         postsDao.deleteById(id);
-        return "Post Deleted!";
+        return "redirect:/posts/";
     }
 
     @GetMapping("/search")

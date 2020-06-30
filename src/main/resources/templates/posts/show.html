@@ -12,10 +12,18 @@
             <p class="card-text" th:text="${post.body}"></p>
             <div>Created by: <span th:text="${post.owner.username}"></span></div>
         </div>
-        <form th:action="${'/posts'}" th:method="GET">
-            <button class="btn btn-primary">View All Posts</button>
+        <form th:action="${'/posts/' + post.ID + '/edit'}" th:method="GET">
+            <button class="btn btn-primary">Edit Post</button>
+            <button form="delete-form" class="btn btn-danger">Delete Post</button>
+        </form>
+        <form id="delete-form" th:action="${'/posts/' + post.ID + '/delete'}" th:method="POST">
         </form>
     </div>
+</div>
+<div class="row justify-content-center">
+    <form th:action="${'/posts/'}" th:method="GET">
+        <button class="btn btn-primary">View All Posts</button>
+    </form>
 </div>
 </body>
 </html>

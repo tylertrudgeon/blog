@@ -3,9 +3,8 @@
 <head th:replace="fragments/header :: header('Index')"></head>
 <body>
     <nav th:replace="fragments/navbar :: navbar"></nav>
-    <h1 class="d-flex justify-content-center">Welcome to my Blog!</h1>
-
-    <h1 th:if="${noPostsFound}">No posts found!</h1>
+        <h1 class="d-flex justify-content-center">Welcome to my Blog!</h1>
+        <h1 th:if="${noPostsFound}">No posts found!</h1>
     <div class="row justify-content-center">
         <div class="card text-center m-5" style="width: 18rem;" th:each="post : ${posts}">
             <div class="card-body">
