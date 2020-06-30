@@ -4,6 +4,7 @@ import com.codeup.blog.PostsDao.PostsRepository;
 import com.codeup.blog.PostsDao.UserRepository;
 import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
+import com.codeup.blog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +14,13 @@ import java.util.List;
 public class PostController {
     private PostsRepository postsDao;
     private UserRepository userDao;
+    private final EmailService emailService;
 
-    public PostController(PostsRepository postsRepository, UserRepository userRepository) {
-        postsDao = postsRepository;
-        userDao = userRepository;
+
+    public PostController(PostsRepository postsRepository, UserRepository userRepository, EmailService emailService) {
+        this.postsDao = postsRepository;
+        this.userDao = userRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -46,6 +50,7 @@ public class PostController {
         User currentUser = userDao.getOne(1L);
         postToBeSaved.setOwner(currentUser);
         Post newPost = postsDao.save(postToBeSaved);
+        emailService.prepareAndSend(newPost, "A new post has been created","A new post has been created with the id of: " + newPost.getID() + " with a title of: " + newPost.getTitle() + ", by username: " + newPost.getOwner() + ".");
         return "redirect:/posts/" + newPost.getID();
     }
 
