@@ -39,17 +39,17 @@ public class PostController {
     }
 
     @GetMapping("posts/create")
-    @ResponseBody
-    public String createPostForm(){
-        return "view the form for creating a post";
+    public String createPostForm(Model postCreateModel){
+        postCreateModel.addAttribute("post", new Post());
+        return "posts/create";
     }
 
     @PostMapping("posts/create")
-    @ResponseBody
-    public String createPost(){
-        Post newPost = new Post("Dell PC","Like new!", userDao.getOne(1L));
-        postsDao.save(newPost);
-        return "create a new post";
+    public String createPost(@ModelAttribute Post postToBeSaved){
+        User currentUser = userDao.getOne(1L);
+        postToBeSaved.setOwner(currentUser);
+        Post newPost = postsDao.save(postToBeSaved);
+        return "redirect:/posts/" + newPost.getID();
     }
 
     @GetMapping("/posts/{id}/edit")
@@ -61,14 +61,11 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     @ResponseBody
-    public String editPost(@PathVariable long id,
-                           @RequestParam (name = "title") String title,
-                           @RequestParam (name = "body") String body) {
-        Post postToEdit = postsDao.getOne(id);
-        postToEdit.setTitle(title);
-        postToEdit.setBody(body);
+    public String editPost(@ModelAttribute Post postToEdit) {
+        User currentUser = userDao.getOne(1L);
+        postToEdit.setOwner(currentUser);
         postsDao.save(postToEdit);
-        return "Post Updated!";
+        return "redirect:/ads/" + postToEdit.getID();
     }
 
     @PostMapping("/posts/{id}/delete")
