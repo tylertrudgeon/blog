@@ -5,6 +5,7 @@ import com.codeup.blog.PostsDao.UserRepository;
 import com.codeup.blog.models.Post;
 import com.codeup.blog.models.User;
 import com.codeup.blog.services.EmailService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +48,7 @@ public class PostController {
 
     @PostMapping("posts/create")
     public String createPost(@ModelAttribute Post postToBeSaved){
-        User currentUser = userDao.getOne(1L);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToBeSaved.setOwner(currentUser);
         Post newPost = postsDao.save(postToBeSaved);
         emailService.prepareAndSend(newPost, "A new post has been created","A new post has been created with the id of: " + newPost.getID() + " with a title of: " + newPost.getTitle());
@@ -63,7 +64,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/edit")
     public String editPost(@ModelAttribute Post postToEdit) {
-        User currentUser = userDao.getOne(1L);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToEdit.setOwner(currentUser);
         postsDao.save(postToEdit);
         return "redirect:/posts/" + postToEdit.getID();
@@ -75,10 +76,10 @@ public class PostController {
         return "redirect:/posts/";
     }
 
-    @GetMapping("/search")
-    public String searchResults(Model model, @RequestParam(name = "term") String term){
-        List<Post> Posts = postsDao.searchByTitle(term);
-        model.addAttribute("posts", Posts);
-        return "posts/index";
-    }
+//    @GetMapping("/search")
+//    public String searchResults(Model model, @RequestParam(name = "term") String term){
+//        List<Post> Posts = postsDao.searchByTitle(term);
+//        model.addAttribute("posts", Posts);
+//        return "posts/index";
+//    }
 }
