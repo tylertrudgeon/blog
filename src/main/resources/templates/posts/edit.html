@@ -23,7 +23,7 @@
             <label class="form-check-label" for="inlineCheckbox2">2</label>
         </div>
         <br>
-        <button class="btn btn-light mt-3">Save Changes</button>
+        <button class="btn btn-secondary mt-3">Save Changes</button>
         <button form="delete-form" class="btn btn-danger mt-3">Delete Post</button>
     </form>
     <form id="delete-form" th:action="${'/posts/' + post.ID + '/delete'}" th:method="POST">
