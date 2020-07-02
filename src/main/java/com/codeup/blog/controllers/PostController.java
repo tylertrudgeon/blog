@@ -65,14 +65,18 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String editPost(@ModelAttribute Post postToEdit) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        postToEdit.setOwner(currentUser);
-        postsDao.save(postToEdit);
+        if(currentUser == postToEdit.getOwner()){
+            postsDao.save(postToEdit);
+        }
         return "redirect:/posts/" + postToEdit.getID();
     }
 
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id){
-        postsDao.deleteById(id);
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(currentUser == postsDao.getOne(id).getOwner()) {
+            postsDao.deleteById(id);
+        }
         return "redirect:/posts/";
     }
 
