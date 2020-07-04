@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header('Profile')"></head>
+<body style="background-color: lightgray">
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<h1 class="d-flex justify-content-center mt-5">Profile</h1>
+<h1 th:if="${noPostsFound}">No posts found!</h1>
+<div class="row justify-content-center">
+    <div class="card text-center m-5 border-secondary" style="width: 18rem;" th:each="post : ${posts}">
+        <div class="card-body p-0">
+            <div class="card-header" style="font-weight: bold" th:text="${post.title}"></div>
+            <p class="card-text my-3 px-2" th:text="${post.body}"></p>
+        </div>
+        <form class="my-2" th:action="${'/posts/' + post.ID}" th:method="GET">
+            <button class="btn btn-secondary">View Post</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -24,6 +24,17 @@ public class PostController {
         this.emailService = emailService;
     }
 
+    @GetMapping("/profile")
+    public String userPosts(Model model, Post userPosts){
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Post> posts = postsDao.findAll();
+        long postsToDisplay = userPosts.getOwner().getId();
+        if(currentUser.getId() == postsToDisplay){
+            model.addAttribute("posts", posts);
+        }
+        return "/users/profile";
+    }
+
     @GetMapping("/posts")
     public String postsIndex(Model model){
         List<Post> posts = postsDao.findAll();
@@ -79,11 +90,11 @@ public class PostController {
         }
         return "redirect:/posts/";
     }
-
-    @GetMapping("/search")
-    public String searchResults(Model model, @RequestParam(name = "term") String term){
-        List<Post> Posts = postsDao.searchByTitle(term);
-        model.addAttribute("posts", Posts);
-        return "posts/index";
-    }
+//
+//    @GetMapping("/search")
+//    public String searchResults(Model model, @RequestParam(name = "term") String term){
+//        List<Post> Posts = postsDao.searchByTitle(term);
+//        model.addAttribute("posts", Posts);
+//        return "posts/index";
+//    }
 }
