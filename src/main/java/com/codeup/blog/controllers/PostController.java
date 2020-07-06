@@ -51,13 +51,13 @@ public class PostController {
         return "posts/show";
     }
 
-    @GetMapping("posts/create")
+    @GetMapping("/posts/create")
     public String createPostForm(Model postCreateModel){
         postCreateModel.addAttribute("post", new Post());
         return "posts/create";
     }
 
-    @PostMapping("posts/create")
+    @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post postToBeSaved){
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         postToBeSaved.setOwner(currentUser);
@@ -66,23 +66,26 @@ public class PostController {
         return "redirect:/posts/" + newPost.getID();
     }
 
-    @GetMapping("posts/{id}/edit")
+    @GetMapping("/posts/{id}/edit")
     public String showEditForm(Model model, @PathVariable Long id) {
         Post postToEdit = postsDao.getOne(id);
         model.addAttribute("post", postToEdit);
         return "posts/edit";
     }
 
-    @PostMapping("posts/{id}/edit")
+    @PostMapping("/posts/{id}/edit")
     public String editPost(@ModelAttribute Post postToEdit) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(currentUser == postToEdit.getOwner()){
-            postsDao.save(postToEdit);
-        }
+//        if(currentUser == postToEdit.getOwner()){
+//            postToEdit.setOwner(currentUser);
+//            postsDao.save(postToEdit);
+//        }
+        postToEdit.setOwner(currentUser);
+        postsDao.save(postToEdit);
         return "redirect:/posts/" + postToEdit.getID();
     }
 
-    @PostMapping("posts/{id}/delete")
+    @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id){
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(currentUser == postsDao.getOne(id).getOwner()) {
