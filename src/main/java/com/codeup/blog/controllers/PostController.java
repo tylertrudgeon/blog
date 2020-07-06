@@ -76,12 +76,9 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String editPost(@ModelAttribute Post postToEdit) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(currentUser == postToEdit.getOwner()){
-//            postToEdit.setOwner(currentUser);
-//            postsDao.save(postToEdit);
-//        }
-        postToEdit.setOwner(currentUser);
-        postsDao.save(postToEdit);
+        if(currentUser == postToEdit.getOwner()){
+            postsDao.save(postToEdit);
+        }
         return "redirect:/posts/" + postToEdit.getID();
     }
 
