@@ -66,14 +66,14 @@ public class PostController {
         return "redirect:/posts/" + newPost.getID();
     }
 
-    @GetMapping("/posts/{id}/edit")
+    @GetMapping("posts/{id}/edit")
     public String showEditForm(Model model, @PathVariable Long id) {
         Post postToEdit = postsDao.getOne(id);
         model.addAttribute("post", postToEdit);
         return "posts/edit";
     }
 
-    @PostMapping("/posts/{id}/edit")
+    @PostMapping("posts/{id}/edit")
     public String editPost(@ModelAttribute Post postToEdit) {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(currentUser == postToEdit.getOwner()){
@@ -82,7 +82,7 @@ public class PostController {
         return "redirect:/posts/" + postToEdit.getID();
     }
 
-    @PostMapping("/posts/{id}/delete")
+    @PostMapping("posts/{id}/delete")
     public String delete(@PathVariable long id){
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(currentUser == postsDao.getOne(id).getOwner()) {
