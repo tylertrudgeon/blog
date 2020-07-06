@@ -91,7 +91,8 @@ public class PostController {
         if(currentUser == postsDao.getOne(id).getOwner()) {
             postsDao.deleteById(id);
         }
-        return "redirect:/posts/";
+        postsDao.deleteById(id);
+        return "redirect:/posts";
     }
 //
 //    @GetMapping("/search")
